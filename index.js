@@ -5,7 +5,10 @@ const app = express()
 require('dotenv').config()
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 5000
+
+const port = process.env.PORT || 5000;
+
+const uploadImage = require("./src/utils/uploadImage");
 //console.log(process.env.DB_URL)
 
 //admin (2Wbktu7gUAkuigc1)
@@ -24,14 +27,16 @@ app.use(cors({
 // all routes
 const authRoutes = require('./src/users/user.route');
 const productRoutes = require('./src/products/products.route');
-const reviewRoutes = require('./src/reviews/reviews.router')
+const reviewRoutes = require('./src/reviews/reviews.router');
+const orderRoutes = require('./src/orders/orders.route');
+const statsRoutes = require('./src/stats/stats.route');
 
+// Route setup
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/reviews', reviewRoutes);
-
-
-
+app.use('/api/orders', orderRoutes);
+app.use('/api/stats', statsRoutes);
 
 main().then(() => console.log("MongoDB connected")).catch(err => console.log(err));
 
@@ -42,6 +47,14 @@ async function main() {
         res.send('Ba Wuy Server is running ... ')
     })
 }
+
+// upload image routes
+app.post("/uploadImage", (req, res) => {
+    uploadImage(req.body.image)
+        .then((url) => res.send(url))
+        .catch((err) => res.status(500).send(err));
+});
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

@@ -2,8 +2,9 @@ const express = require('express');
 const User = require('./user.model');
 const generateToken = require('../middleware/generateToken');
 const { verify } = require('jsonwebtoken');
-// const verifyToken = require('../middleware/verifyToken');
+const verifyToken = require('../middleware/verifyToken');
 const router = express.Router();
+require('dotenv').config();
 
 // Register endpoint
 router.post('/register', async (req, res) => {
