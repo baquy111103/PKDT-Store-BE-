@@ -11,6 +11,7 @@ const port = process.env.PORT || 5000;
 const uploadImage = require("./src/utils/uploadImage");
 //console.log(process.env.DB_URL)
 
+
 //admin (2Wbktu7gUAkuigc1)
 
 //middleware setup
@@ -54,6 +55,13 @@ app.post("/uploadImage", (req, res) => {
         .then((url) => res.send(url))
         .catch((err) => res.status(500).send(err));
 });
+
+// paypal.configure({
+//     'mode':'sandbox',
+//     'client_id':'Ab4LA33LaOGv1TwKyNRMxB7Fj4amsRr8-qqG2kFleCG_S0ivN3r77VWpOAm3v5Hs0cgVuta-bme0O2cH',
+//     'client_secret':'EHzrwXL_qj9R7n6UC-JZOSVgOBqOhcbcAKyCSZdTJ9dSO_5DJqH0JRVRqzOt2qulrcaM9jAkYC37oC6N'
+// });
+
 
 
 app.listen(port, () => {
